@@ -52,7 +52,7 @@ A request was made to analyze a data set that contains information for MPG and 1
 * Is an automatic or manual transmission better for MPG?
 * Quantify the MPG difference between automatic and manual transmissions
 
-Methods for analysis include, exploratory data analysis, the use of liner Regression Models and statistical inference.  Images, tables and other output will be located in the Appendix section and referenced as needed.  The R code and numerous other output has been suppressed for this report, however, if the review is interested it can be accessed using this link: ***link*** 
+Methods for analysis include, exploratory data analysis, the use of liner Regression Models and statistical inference.  Images, tables and other output will be located in the Appendix section and referenced as needed.  The R code and numerous other output has been suppressed for this report, however, if the review is interested it can be accessed using this link: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd)
 
 The results of the study show that neither of the above questions can be adequately answered using the provided data set.  The primary issue is that the data set is a random collection of vehicle performance data with no intention of supporting statistical studies.  Please see the Data Analysis section for more information regarding the data set.  Furthermore, aerodynamic drag coefficients are not present in the data which can also explain differences in mpg ([Improving Aerodynamics to Boost Fuel Economy](http://www.edmunds.com/fuel-economy/improving-aerodynamics-to-boost-fuel-economy.html) ).
 
@@ -63,27 +63,27 @@ It is recommended that a statistically sound study be designed and executed in o
 \ 
 
 ## Data Analysis
-The R markdown file for this report can be found ***here***.  This link is provided so the formulas can be reviewed if desired.
+The R markdown file for this report can be reviewed using this link if desired: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd).
 
 ### Exploratory
 The first part of the analysis was to understand what the data set contained.  To start this process a summary data table of transmission type counts and mpg statistics by cylinder was created (***Figure 1 in the appendix***).  From this summary it is apparent that the two transmission types do not have equal representation overall and there is an even greater disparity between transmission counts within cylinder groupings.  
 
-To get a glimpse of weight versus transmission type a bar graph was created (***Figure 2 in the appendix***) to show the transmission count with min, mean and max weight by cylinder type.  This graph shows that the weight ranges are typically higher for the vehicles with automatic transmissions.  Most notable is the 8 cylinder models that are primarily automatic and the heaviest.  
+To get a glimpse of weight versus transmission type a bar graph was created (***Figure 2 in the appendix***) to show the transmission count with min, mean and max weight by cylinder type.  This graph shows that the weight ranges are typically higher for the vehicles with automatic transmissions.  Most notable is the 8 cylinder models that are primarily automatic and the heaviest.  Also of interest is that the weight range is greatest for 4 cylinder manuals and 8 cylinder automatics with 8 being the greatest.  However, the 4 cylinder manual standard deviation of mpg is greater than the 8 cylinder automatic.
 
-Scanning the data set also shows that, among other differences, the number of gears and rear axle ratio vary across subjects.  Gearing and axle ration combinations are typically dependent upon the use application for the vehicle and also have an affect on mpg.
+Scanning the data set also shows that, among other differences, the number of gears and rear axle ratio vary across subjects.  Gearing and axle ration combinations are typically dependent upon the use application for the vehicle and also have an affect on mpg.  Also, as previously noted, aerodynamic drag coefficients are not present in the data set.
 
 
 ### Linear Models
-For completeness, some linear models were also investigated.  Figure 3 (***see appendix***) shows the results from simple linear models of (mpg~am) in a table.  From this we can compare the results for all the data as well as each cylinder group.  Here the slopes are all positive indicating an increase in mpg when using a manual transmission instead of an automatic.  Hoever, the slopes decrease as the number of subjects with a manual transmission decreases in each group.
+For completeness, some linear models were also investigated.  Figure 3 (***see appendix***) shows the results from simple linear models of (mpg~am) in a table.  From this we can compare the results of all the data to each cylinder group.  Using a simple model the slopes are all positive indicating an increase in mpg when using a manual transmission instead of an automatic.  Hoever, the slopes decrease as the number of subjects with a manual transmission decreases in each group.
 
-Additional models were constructed with the variables in the following order: mpg~factor(am) + wt + factor(cyl) + factor(gear) + drat + disp + factor(carb), for a total of seven models.  One for the base and one for each added variable.  The seventh was used in step-wise regression to determine the important factors.  As can be seen in ***Figure 4 & 5*** weight was identified in both AIC and BIC while cylinder was also identified in the BIC.  An anova was ran with all the models (output not provided, see Rmd file) and it identified wt and cyl as important factors.  However, unlike the step-wise the anova will not remove any of the variables from the model as step-wise does so am remains in the anova model.
+Additional models were constructed with the variables in the following order: mpg~factor(am) + wt + factor(cyl) + factor(gear) + drat + disp + factor(carb), for a total of seven models.  One for the base and one for each added variable.  The seventh was used in step-wise regression to determine the important factors.  As can be seen in ***Figure 4 & 5*** weight was identified in both AIC and BIC while cylinder was also identified in the BIC.  An anova was ran with all the models (output not provided, see Rmd file) and it identified wt and cyl as important factors.  However, unlike step-wise analysis the anova will not remove any of the variables from the model so am remains.
 
 ***Figures 6-11*** in the appendix shows that am is either not important or has mixed results.  4 cylinders (BIC) reports a 7 mpg decrease when using a manual and the 6 cylinders (BIC) reports a 2.7 mpg increase for manuals.  For 8 cylinders the transmission type was not found to be significant, however, as previously noted manual transmission are under represented in this group.
 
 
-With regards to model selection, the inclusion of gear, drat, disp and carb should be avoided.  Gear == 5 is only found in manual transmissions and gear == 4 is not represented in 8 cylinder engines.  Drat is closely tied to transmission gearing and ratios where the combination determine rpm for a given speed and gear selection.  Carb >= 4 is only found in 6 and 8 cylinders and carb < 4 is found across all cylinders.  Disp could be a factor if the study was designed to use it.
+With regards to model selection, the inclusion of gear, drat, disp and carb should be avoided.  Gear == 5 is only found in manual transmissions and gear == 4 is not represented in 8 cylinder engines.  Drat is closely tied to transmission gearing and ratios where the combination determines rpm for a given speed and gear selection.  Carb >= 4 is only found in 6 and 8 cylinders and carb < 4 is found across all cylinders.  Disp could be a factor if the study was designed to use it.
 
-Based on the step-wise results a model of (mpg~factor(cyl) + wt + factor(am)) was chossen for use.
+Based on the step-wise results, a model of (mpg~factor(cyl) + wt + factor(am)) was chossen for use.
 
 ```{r fig.width=6, fig.height=1.75, echo=FALSE}
 lm.final <- lm(mpg~factor(cyl) + wt + factor(am), data=mtcars)
@@ -93,7 +93,8 @@ grid.arrange(lm.final.G, nrow=1)
 
 ```
 
-Using  'beta4[1] + c(-1, 1) * qt(.975, df = lm.final$df) * beta4[2]' we see that the 95% confidence interval of change for switching automatic to manual is -2.517 to 2.818 which is centered around 0.  Based on this dataset we cannot determine that there is any difference between automatic and manual transmissions.
+Where beta4 is the results for factor(am)1, using  'beta4[1] + c(-1, 1) * qt(.975, df = lm.final$df) * beta4[2]' we see that the 95% confidence interval for switching from automatic to manual is -2.517 to 2.818 mpg which is centered around 0.  Based on this it cannot be determined that there is any difference between automatic and manual transmissions.
+
 ```{r fig.width=6, fig.height=1, echo=FALSE}
 sumCoef <- summary(lm.final)$coef
 beta4 <- c(sumCoef[5,1], sumCoef[5, 2])
