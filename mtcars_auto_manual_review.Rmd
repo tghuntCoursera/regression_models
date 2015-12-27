@@ -2,7 +2,6 @@
 title: "MPG data analysis for Motor Trend Management"
 output:
   pdf_document: default
-  html_document: default
   keep_md: true
   tidy: FALSE
   fig_caption: true
@@ -47,47 +46,47 @@ lm.fit <- lm(mpg~factor(am), data=mtcars)
 Make graphs in blues and greens.  Per the wife!!!
 
 ## Executive Summary
-A request was made to analyze a data set that contains information for MPG and 10 other variables.  For reviewers outside the company the data can be found in the R data sets library titled 'mtcars'.  This report attempts to answer the following two questions:
+  A request was made to analyze a data set that contains information for MPG and other variables.  For reviewers outside Motor Trend the data can be found in the R library datasets titled 'mtcars'.  The goal of this report is to answer the following two questions:
 
 * Is an automatic or manual transmission better for MPG?
 * Quantify the MPG difference between automatic and manual transmissions
 
-Methods for analysis include, exploratory data analysis, the use of liner Regression Models and statistical inference.  Images, tables and other output will be located in the Appendix section and referenced as needed.  The R code and numerous other output has been suppressed for this report, however, if the review is interested it can be accessed using this link: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd)
+  Methods for analysis include, exploratory data analysis, the use of liner Regression Models and statistical inference.  Images, tables and other output will be located in the Appendix section and referenced as needed.  The R code and numerous other output has been suppressed for this report, however, if the reviewer is interested it can be accessed using this link: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd)
 
-The results of the study show that neither of the above questions can be adequately answered using the provided data set.  The primary issue is that the data set is a random collection of vehicle performance data with no intention of supporting statistical studies.  Please see the Data Analysis section for more information regarding the data set.  Furthermore, aerodynamic drag coefficients are not present in the data which can also explain differences in mpg ([Improving Aerodynamics to Boost Fuel Economy](http://www.edmunds.com/fuel-economy/improving-aerodynamics-to-boost-fuel-economy.html) ).
+  The results of the study show that neither of the above questions can be adequately answered using the provided data set.  The primary issue is that the data set is a random collection of vehicle performance data with no intention of supporting statistical studies.  Furthermore, aerodynamic drag coefficients are not present in the data which can also explain differences in mpg ([Improving Aerodynamics to Boost Fuel Economy](http://www.edmunds.com/fuel-economy/improving-aerodynamics-to-boost-fuel-economy.html) ).  Please see the Data Analysis section for more information regarding the data set. 
 
-It is concluded that the data set can provide some "estimation" of how MPG changes with regards to weight.  However, due to the data sets random nature the other variables (and lack of) are confounded together making it difficult to extract any meaningful correlations.
+  It is concluded that the data set can provide some "estimation" of how MPG changes with regards to weight.  However, due to the data sets random nature the other variables are confounded together making it difficult to extract any meaningful correlations.
 
 
-It is recommended that a statistically sound study be designed and executed in order to answer the original questions or others like it.  The site [fueleconomy.gov](https://www.fueleconomy.gov/feg/factors.shtml) can be referenced for some general information regarding factors that affect fuel economy and what they do to test it.
+  It is recommended that a statistically sound study be designed and executed in order to answer the original questions or others like it.  The site [fueleconomy.gov](https://www.fueleconomy.gov/feg/factors.shtml) can be referenced for some general information regarding factors that affect fuel economy and what they do to test it.
 \ 
 
 ## Data Analysis
-The R markdown file for this report can be reviewed using this link if desired: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd).
+  The R markdown file for this report can be reviewed using this link if desired: [Report Rmd file](https://github.com/tghuntCoursera/regression_models/blob/master/mtcars_auto_manual_review.Rmd).
 
 ### Exploratory
-The first part of the analysis was to understand what the data set contained.  To start this process a summary data table of transmission type counts and mpg statistics by cylinder was created (***Figure 1 in the appendix***).  From this summary it is apparent that the two transmission types do not have equal representation overall and there is an even greater disparity between transmission counts within cylinder groupings.  
+  The first part of the analysis was to understand what the data set contained.  To start this process a summary data table of transmission type counts and mpg statistics by cylinder was created (***Figure 1 in the appendix***).  From this summary it is apparent that the two transmission types do not have equal representation overall and there is an even greater disparity between transmission type counts within cylinder groupings.  
 
-To get a glimpse of weight versus transmission type a bar graph was created (***Figure 2 in the appendix***) to show the transmission count with min, mean and max weight by cylinder type.  This graph shows that the weight ranges are typically higher for the vehicles with automatic transmissions.  Most notable is the 8 cylinder models that are primarily automatic and the heaviest.  Also of interest is that the weight range is greatest for 4 cylinder manuals and 8 cylinder automatics with 8 being the greatest.  However, the 4 cylinder manual standard deviation of mpg is greater than the 8 cylinder automatic.
+  A bar graph was created to investigate weight versus transmission type (***Figure 2 in the appendix***) showing the transmission count with min, mean and max weight by cylinder type.  This graph shows that the weight ranges are typically higher for the vehicles with automatic transmissions.  Most notable is the 8 cylinder models that are primarily automatic and the heaviest.  Also of interest is that the weight range is greatest for 4 cylinder manuals and 8 cylinder automatics with 8 being the greatest.  However, the 4 cylinder manual standard deviation of mpg is greater than the 8 cylinder automatic.
 
-Scanning the data set also shows that, among other differences, the number of gears and rear axle ratio vary across subjects.  Gearing and axle ration combinations are typically dependent upon the use application for the vehicle and also have an affect on mpg.  Also, as previously noted, aerodynamic drag coefficients are not present in the data set.
+  Scanning the data set also shows that, among other differences, the number of gears and rear axle ratio vary across subjects.  Gearing and axle ratio combinations are typically dependent upon the use application for the vehicle and have an affect on mpg.  Also, as previously noted, aerodynamic drag coefficients are not present in the data set.
 
 
 ### Linear Models
-For completeness, some linear models were also investigated.  Figure 3 (***see appendix***) shows the results from simple linear models of (mpg~am) in a table.  From this we can compare the results of all the data to each cylinder group.  Using a simple model the slopes are all positive indicating an increase in mpg when using a manual transmission instead of an automatic.  Hoever, the slopes decrease as the number of subjects with a manual transmission decreases in each group.
+  For completeness, some linear models were also investigated.  Figure 3 (***see appendix***) shows the results from simple linear models of (mpg~am) in a table.  From this we can compare the results of all the data to each cylinder group.  Using this simple model shows that the slopes are all positive indicating an increase in mpg when using a manual transmission instead of an automatic.  However, the slopes magnitude decreases as the number of subjects with a manual transmission decreases in each group.
 
-Additional models were constructed with the variables in the following order: mpg~factor(am) + wt + factor(cyl) + factor(gear) + drat + disp + factor(carb), for a total of seven models.  One for the base and one for each added variable.  The seventh was used in step-wise regression to determine the important factors.  As can be seen in ***Figure 4 & 5*** weight was identified in both AIC and BIC while cylinder was also identified in the BIC.  An anova was ran with all the models (output not provided, see Rmd file) and it identified wt and cyl as important factors.  However, unlike step-wise analysis the anova will not remove any of the variables from the model so am remains.
+  Additional models were constructed with the variables in the following order: mpg~factor(am) + wt + factor(cyl) + factor(gear) + drat + disp + factor(carb), for a total of seven models.  One for the base and one for each added variable.  The seventh was used in step-wise regression to determine the important factors.  As can be seen in ***Figure 4 & 5*** weight was identified in both AIC and BIC while cylinder was also identified in the BIC.  An anova was ran with all the models (output not provided, see Rmd file) and it identified wt and cyl as important factors.  However, unlike step-wise analysis the anova will not remove any of the variables from the model so am remained.
 
-***Figures 6-11*** in the appendix shows that am is either not important or has mixed results.  4 cylinders (BIC) reports a 7 mpg decrease when using a manual and the 6 cylinders (BIC) reports a 2.7 mpg increase for manuals.  For 8 cylinders the transmission type was not found to be significant, however, as previously noted manual transmission are under represented in this group.
+  ***Figures 6-11*** in the appendix shows that am is either not important or has mixed results.  4 cylinders (BIC) reports a 7 mpg decrease when using a manual and the 6 cylinders (BIC) reports a 2.7 mpg increase for manuals.  For 8 cylinders the transmission type was not found to be significant, however, as previously noted manual transmissions are under represented in the 8 cylinder group.
 
 
-With regards to model selection, the inclusion of gear, drat, disp and carb should be avoided.  Gear == 5 is only found in manual transmissions and gear == 4 is not represented in 8 cylinder engines.  Drat is closely tied to transmission gearing and ratios where the combination determines rpm for a given speed and gear selection.  Carb >= 4 is only found in 6 and 8 cylinders and carb < 4 is found across all cylinders.  Disp could be a factor if the study was designed to use it.
+  With regards to model selection, the inclusion of gear, drat, disp and carb should be avoided.  Gear == 5 is only found in manual transmissions and gear == 4 is not represented in 8 cylinder engines.  Drat is closely tied to transmission gearing and ratios where the combination determines rpm for a given speed and gear selection.  Carb >= 4 is only found in 6 and 8 cylinders and carb < 4 is found across all cylinders.  Disp could be a factor if the study was designed to use it.
 
-Based on the step-wise results, a model of (mpg~factor(cyl) + wt + factor(am)) was chossen for use.
+  Based on the step-wise results, a model of (mpg~factor(cyl) + wt + factor(am)) was chosen for review.
 
 ```{r fig.width=6, fig.height=1.75, echo=FALSE}
+# Generate the output of the final model and place it in the doc.
 lm.final <- lm(mpg~factor(cyl) + wt + factor(am), data=mtcars)
-
 lm.final.G <- tableGrob(summary(lm.final)$coef, theme=tt1)
 grid.arrange(lm.final.G, nrow=1)
 
@@ -96,10 +95,10 @@ grid.arrange(lm.final.G, nrow=1)
 Where beta4 is the results for factor(am)1, using  'beta4[1] + c(-1, 1) * qt(.975, df = lm.final$df) * beta4[2]' we see that the 95% confidence interval for switching from automatic to manual is -2.517 to 2.818 mpg which is centered around 0.  Based on this it cannot be determined that there is any difference between automatic and manual transmissions.
 
 ```{r fig.width=6, fig.height=1, echo=FALSE}
+# Generate the data for the range of mpg using the coef and place the data in the doc.
 sumCoef <- summary(lm.final)$coef
 beta4 <- c(sumCoef[5,1], sumCoef[5, 2])
 res <- beta4[1] + c(-1, 1) * qt(.975, df = lm.final$df) * beta4[2]
-
 lm.final.res.G <- tableGrob(res, theme=tt1)
 grid.arrange(lm.final.res.G, nrow=1)
 ```
@@ -161,6 +160,7 @@ fig.cap <- "Test caption"
 \ 
 
 ```{r fig.width=4, fig.height=1.25, echo=FALSE}
+# Code to build the info for and display figure 3.
 # display base lm data for all and each cylinder
 lmdataG <- tableGrob(lmdata, theme=tt1)
 grid.arrange(lmdataG, nrow=1)
@@ -170,6 +170,7 @@ grid.arrange(lmdataG, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1, echo=FALSE}
+# All data linear models and anova
 
 lm.1 <- lm(mpg~factor(am), data=mtcars)
 
@@ -190,6 +191,8 @@ anov.lm <- anova(lm.1, lm.2, lm.3, lm.4, lm.5, lm.6, lm.7)
 
 
 ```{r fig.width=8, fig.height=.75, echo=FALSE}
+# Code to build the info for and display figure 4.
+# AIC step-wise for full data
 #print("step-wise = AIC")
 lm.step.aic <- step(lm.7, k=nrow(mtcars), trace=0)
 #summary(lm.step.aic)$coef
@@ -201,6 +204,8 @@ grid.arrange(lm.step.aic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1.25, echo=FALSE}
+# Code to build the info for and display figure 5.
+# BIC step-wise for full data
 #print("step-wise = BIC")
 lm.step.bic <- step(lm.7, k=log(nrow(mtcars)), trace=0)
 #summary(lm.step.bic)$coef
@@ -212,6 +217,7 @@ grid.arrange(lm.step.bic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1, echo=FALSE}
+# 4 cyclinder linear models and anova
 
 lm.4c.1 <- lm(mpg~factor(am), data=mt.4cyl)
 
@@ -230,6 +236,8 @@ anov.lm.4c <- anova(lm.4c.1, lm.4c.2, lm.4c.3, lm.4c.4, lm.4c.5, lm.4c.6)
 
 
 ```{r fig.width=8, fig.height=0.5, echo=FALSE}
+# Code to build the info for and display figure 6.
+# AIC step-wise for 4 cylinders
 #print("step-wise = AIC")
 lm.4c.step.aic <- step(lm.4c.6, k=nrow(mtcars), trace=0)
 #summary(lm.4c.step.aic)$coef
@@ -241,6 +249,8 @@ grid.arrange(lm.4c.step.aic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1.5, echo=FALSE}
+# Code to build the info for and display figure 7.
+# BIC step-wise for 4 cylinders
 #print("step-wise = BIC")
 lm.4c.step.bic <- step(lm.4c.6, k=log(nrow(mtcars)), trace=0)
 #summary(lm.4c.step.bic)$coef
@@ -252,6 +262,7 @@ grid.arrange(lm.4c.step.bic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=.5, echo=FALSE}
+# 6 cyclinder linear models and anova
 
 lm.6c.1 <- lm(mpg~factor(am), data=mt.6cyl)
 
@@ -269,6 +280,8 @@ anov.lm.6c <- anova(lm.6c.1, lm.6c.2, lm.6c.3, lm.6c.4, lm.6c.5, lm.6c.6)
 ```
 
 ```{r fig.width=8, fig.height=.5, echo=FALSE}
+# Code to build the info for and display figure 8.
+# AIC step-wise for 6 cylinders
 #print("step-wise = AIC")
 lm.6c.step.aic <- step(lm.6c.6, k=nrow(mtcars), trace=0)
 #summary(lm.6c.step.aic)$coef
@@ -280,6 +293,8 @@ grid.arrange(lm.6c.step.aic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1.5, echo=FALSE}
+# Code to build the info for and display figure 9.
+# BIC step-wise for 6 cylinders
 #print("step-wise = BIC")
 lm.6c.step.bic <- step(lm.6c.6, k=log(nrow(mtcars)), trace=0)
 #summary(lm.6c.step.bic)$coef
@@ -293,7 +308,7 @@ grid.arrange(lm.6c.step.bic.G, nrow=1)
 
 
 ```{r fig.width=8, fig.height=1, echo=FALSE}
-
+# 8 cyclinder linear models and anova
 lm.8c.1 <- lm(mpg~factor(am), data=mt.8cyl)
 
 lm.8c.2 <- lm(mpg~factor(am) + wt, data=mt.8cyl)
@@ -310,6 +325,8 @@ anov.lm.8c <- anova(lm.8c.1, lm.8c.2, lm.8c.3, lm.8c.4, lm.8c.5, lm.8c.6)
 ```
 
 ```{r fig.width=8, fig.height=.5, echo=FALSE}
+# Code to build the info for and display figure 10.
+# AIC step-wise for 8 cylinders
 #print("step-wise = AIC")
 lm.8c.step.aic <- step(lm.8c.6, k=nrow(mtcars), trace=0)
 #summary(lm.8c.step.aic)$coef
@@ -321,6 +338,8 @@ grid.arrange(lm.8c.step.aic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=1.5, echo=FALSE}
+# Code to build the info for and display figure 11.
+# BIC step-wise for 8 cylinders
 #print("step-wise = BIC")
 lm.8c.step.bic <- step(lm.8c.6, k=log(nrow(mtcars)), trace=0)
 #summary(lm.8c.step.bic)$coef
@@ -332,6 +351,8 @@ grid.arrange(lm.8c.step.bic.G, nrow=1)
 \ 
 
 ```{r fig.width=8, fig.height=6, echo=FALSE}
+# Code to build the info for and display figure 12.
+# Print residual diagnostic plots.
 par(mfrow = c(2, 2)); plot(lm.final)
 
 ```
